@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "TaskManagementApp.app"
-               BlueprintName = "TaskManagementApp"
-               ReferencedContainer = "container:TaskManagementApp.xcodeproj">
+               BuildableName = "StarterApp.app"
+               BlueprintName = "StarterApp"
+               ReferencedContainer = "container:StarterApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "TaskManagementAppTests.xctest"
-               BlueprintName = "TaskManagementAppTests"
-               ReferencedContainer = "container:TaskManagementApp.xcodeproj">
+               BuildableName = "StarterAppTests.xctest"
+               BlueprintName = "StarterAppTests"
+               ReferencedContainer = "container:StarterApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "TaskManagementApp.app"
-            BlueprintName = "TaskManagementApp"
-            ReferencedContainer = "container:TaskManagementApp.xcodeproj">
+            BuildableName = "StarterApp.app"
+            BlueprintName = "StarterApp"
+            ReferencedContainer = "container:StarterApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "TaskManagementApp.app"
-            BlueprintName = "TaskManagementApp"
-            ReferencedContainer = "container:TaskManagementApp.xcodeproj">
+            BuildableName = "StarterApp.app"
+            BlueprintName = "StarterApp"
+            ReferencedContainer = "container:StarterApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
