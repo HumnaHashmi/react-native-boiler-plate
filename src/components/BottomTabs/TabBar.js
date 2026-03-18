@@ -27,6 +27,7 @@ export default function TabBar({ state, navigation, onFabPress }) {
           );
         }
 
+        
         return (
           <TabItem
             key={route.key}

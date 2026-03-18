@@ -12,8 +12,10 @@ import RootNavigator from './src/navigation/index';
 import { Provider } from 'react-redux';
 import store from './src/redux/store'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 const App = () => {
+  useNetInfo();
   const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(() => {

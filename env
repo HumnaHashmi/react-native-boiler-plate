@@ -1,0 +1,5 @@
+API_URL=''
+APP_NAME = tarterapp;
+
+import Config from 'react-native-config'
+baseURL:Config.API_URL

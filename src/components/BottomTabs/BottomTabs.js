@@ -15,6 +15,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabs=()=> {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
   return (
     <>
       <Tab.Navigator
@@ -30,7 +31,7 @@ const BottomTabs=()=> {
         <Tab.Screen name="Calendar" component={CalendarScreen} />
       </Tab.Navigator>
       <FabModal visible={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <CreateTask />
+        <CreateTask onClose={() => setIsModalOpen(false)} />
       </FabModal>
     </>
   );

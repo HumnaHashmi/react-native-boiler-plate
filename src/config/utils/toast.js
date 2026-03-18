@@ -6,7 +6,7 @@ const base = {
   bottomOffset: 30,
 };
 
-export const toastConfig = {
+export const Toast = {
   error: message => ({ ...base, type: 'error', text1: message }),
   success: message => ({
     ...base,

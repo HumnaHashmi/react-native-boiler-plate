@@ -64,14 +64,6 @@ const DrawerStack = () => {
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={({ navigation }) => ({
         headerShown: false,
-        headerLeft: () => (
-          <TouchableOpacity
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            style={{ marginLeft: 15 }}
-          >
-            <Text style={{ fontSize: 24 }}>☰</Text>
-          </TouchableOpacity>
-        ),
       })}
     >
       <Drawer.Screen name="Home" component={HomeStack} />

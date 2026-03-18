@@ -14,18 +14,8 @@ export default function FabModal({ visible, onClose ,children}) {
       backdropTransitionOutTiming={0}
     >
       <View style={styles.modalContainer}>
-        <TouchableOpacity onPress={onClose}>
-          <AntDesign
-            name="close"
-            size={20}
-            color={Colors.darkGray}
-            style={styles.closeBtn}
-          />
-        </TouchableOpacity>
 
-        <View>
           {children}
-        </View>
       </View>
     </Modal>
   );
