@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   image: {
     width: '50%',
     height: '25%',
-    borderRadius: 100,
+    borderRadius: Metrix.Radius,
     borderWidth: 2,
   },
   slidder1: {
