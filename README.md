@@ -1,22 +1,23 @@
 # ⚡ React Native Boilerplate
 
-A **production-ready** React Native starter template built with **TypeScript**, clean architecture, pre-configured navigation, state management, and all the essential utilities — so you skip the boilerplate setup and jump straight into building features.
+A **production-ready** React Native starter template built with **JavaScript**, clean architecture, pre-configured navigation, state management, and all the essential utilities — so you skip the boilerplate setup and jump straight into building features.
 
-> Built with React Native 0.84 · React 19 · TypeScript · Redux Toolkit · React Navigation v7
+> Built with React Native 0.84 · React 19 · JavaScript · Redux Toolkit · React Navigation v7
 
 ---
 
 ## ✨ Features
 
-- ✅ **TypeScript** — fully typed codebase out of the box
 - ✅ **Redux Toolkit** — pre-configured store with slice pattern
 - ✅ **Multi-level Navigation** — Onboarding → Auth → Drawer → Home → Bottom Tabs
 - ✅ **Reusable Component Library** — Button, Input, Header, Modal, Loader, Toast, and more
 - ✅ **Theme System** — centralized colors, fonts, and spacing
 - ✅ **Environment Variables** — via `react-native-config`
 - ✅ **Network Detection** — `@react-native-community/netinfo` integrated
+- ✅ **Fast Image Loading** — `react-native-fast-image` for optimized image rendering
 - ✅ **Splash Screen** — ready to configure
 - ✅ **Animations** — React Native Reanimated v4
+- ✅ **Swiper** — onboarding slider with `react-native-swiper`
 - ✅ **ESLint + Prettier** — enforced code style
 - ✅ **Jest** — testing setup ready
 
@@ -36,18 +37,18 @@ src/
 │   ├── AppModal.js          # Global modal component
 │   ├── Button.js            # Custom button
 │   ├── DrawerIcon.js        # Drawer icon component
-│   ├── FastImageLoading.js  # Optimized image loader
-│   ├── Header.js            # Screen header
-│   ├── Input.js             # Custom text input
-│   ├── Loader.js            # Loading spinner
+│   ├── FastImageLoading.js  # Optimized image with loading state
+│   ├── Header.js            # Screen header with back button
+│   ├── Input.js             # Custom text input with validation
+│   ├── Loader.js            # Full-screen and inline loading spinner
 │   ├── Search.js            # Search input component
-│   ├── ToggleButton.js      # Toggle switch
-│   └── UserHeader.js        # User profile header
+│   ├── ToggleButton.js      # On/off toggle switch
+│   └── UserHeader.js        # User profile header with avatar
 │
-├── config/                  # App configuration
-│   ├── navigation/          # Navigation config
-│   ├── theme/               # Colors, typography, spacing
-│   └── utils/               # Utility/helper functions
+├── config/                  # App-wide configuration
+│   ├── navigation/          # Navigation helpers/config
+│   ├── theme/               # Colors, typography, spacing tokens
+│   └── utils/               # Helper/utility functions
 │       └── Images.js        # Centralized image imports
 │
 ├── hooks/                   # Custom React hooks
@@ -57,10 +58,10 @@ src/
 │   ├── DrawerStack.js       # Drawer navigation
 │   ├── HomeStack.js         # Main app stack
 │   ├── OnboardingStack.js   # Onboarding flow
-│   └── index.js             # Root navigator
+│   └── index.js             # Root navigator entry point
 │
 ├── redux/                   # State management
-│   ├── Slice/               # Redux slices
+│   ├── Slice/               # Redux slices (one per feature)
 │   └── store.js             # Redux store configuration
 │
 └── screen/                  # App screens
@@ -76,10 +77,11 @@ src/
 | Category | Technology |
 |---|---|
 | Framework | React Native 0.84 |
-| Language | TypeScript 5.8 |
+| Language | JavaScript (ES6+) |
 | State Management | Redux Toolkit 2.x + React Redux |
 | Navigation | React Navigation v7 (Stack, Drawer, Bottom Tabs) |
 | Animations | React Native Reanimated v4 |
+| Images | react-native-fast-image |
 | Environment Config | react-native-config |
 | Network Detection | @react-native-community/netinfo |
 | Icons | react-native-vector-icons |
@@ -87,6 +89,7 @@ src/
 | Toast | react-native-toast-message |
 | Splash Screen | react-native-splash-screen |
 | Gestures | react-native-gesture-handler |
+| Onboarding Slider | react-native-swiper |
 | Linting | ESLint + Prettier |
 | Testing | Jest |
 
@@ -96,7 +99,7 @@ src/
 
 ### Prerequisites
 
-Make sure you have the React Native environment set up:  
+Make sure you have the React Native environment set up:
 👉 [React Native Environment Setup Guide](https://reactnative.dev/docs/set-up-your-environment)
 
 - Node >= 22.11.0
@@ -123,7 +126,7 @@ yarn install
 cp env .env
 ```
 
-Edit `.env` with your configuration:
+Edit `.env` with your own values:
 
 ```env
 API_BASE_URL=https://your-api.com
@@ -150,7 +153,7 @@ yarn android
 
 ```
 RootNavigator
-├── OnboardingStack      → Onboarding screens (shown on first launch)
+├── OnboardingStack      → Onboarding screens (first launch)
 ├── AuthStack            → Login / Register
 └── DrawerStack          → Authenticated app
     └── HomeStack        → Main screens
@@ -164,26 +167,31 @@ RootNavigator
 All design tokens are centralized in `src/config/theme/`:
 
 ```js
-// Colors
+
+// Colors (from Colors.js / useColors.js)
 colors.primary
+colors.secondary
 colors.background
 colors.text
+colors.error
 
-// Typography
-fonts.regular
-fonts.bold
+// Responsive Sizing (from Metrix.js)
+Metrix.HorizontalSize()
+Metrix.VerticalSize()
+Metrix.FontSize()
 
-// Spacing
-spacing.sm
-spacing.md
-spacing.lg
+// Theme Hook
+useColors()
+
+// Centralized Exports (via index.js)
+import { colors, Metrix, useColors } from 'theme';
 ```
 
 ---
 
 ## 🗃 Redux Setup
 
-Store is pre-configured in `src/redux/store.js`. Add new slices inside `src/redux/Slice/`:
+Store is pre-configured in `src/redux/store.js`. Add new feature slices inside `src/redux/Slice/`:
 
 ```js
 // Example slice pattern
@@ -191,14 +199,26 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { user: null, token: null },
+  initialState: {
+    user: null,
+    token: null,
+    isLoading: false,
+  },
   reducers: {
-    setUser: (state, action) => { state.user = action.payload; },
-    logout: (state) => { state.user = null; state.token = null; },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+    },
   },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { setUser, setToken, logout } = authSlice.actions;
 export default authSlice.reducer;
 ```
 
@@ -208,16 +228,20 @@ export default authSlice.reducer;
 
 | Component | Description |
 |---|---|
-| `<Button />` | Primary/secondary button with loading state |
-| `<Input />` | Text input with label, error, and icon support |
-| `<Header />` | Screen header with back button and title |
-| `<UserHeader />` | User profile header with avatar |
-| `<Loader />` | Full-screen and inline loading spinner |
-| `<AppModal />` | Reusable modal with configurable content |
-| `<Search />` | Search bar with debounce support |
+## 🧩 Reusable Components
+
+| Component | Description |
+|---|---|
+| `<Button />` | Custom button with support for text, icons, and optional image rendering |
+| `<Input />` | Configurable text input with left/right icons, secure entry, and multiline support |
+| `<Header />` | Basic header component (can be extended for navigation and titles) |
+| `<UserHeader />` | User profile header with avatar, greeting text, and notification icon |
+| `<Loader />` | Modal-based loading indicator with backdrop overlay |
+| `<AppModal />` | Fully customizable bottom sheet modal with title, close button, and backdrop handling |
+| `<Search />` | Styled search input with icon and shadow UI |
+| `<FastImageLoading />` | Optimized image component with loading indicator and error fallback |
+| `<DrawerIcon />` | Hamburger menu icon to trigger drawer navigation |
 | `<ToggleButton />` | On/off toggle switch |
-| `<FastImageLoading />` | Optimized image with loading placeholder |
-| `<DrawerIcon />` | Hamburger icon for drawer navigation |
 
 ---
 
