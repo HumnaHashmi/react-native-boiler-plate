@@ -3,6 +3,7 @@ import React from 'react';
 import FastImage from 'react-native-fast-image';
 import {Colors, Metrix} from '../config/theme';
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import FastImageLoading from './FastImageLoading';
 const UserHeader = () => {
   const userData = [
   {  name: 'Alex Johonson',
@@ -14,9 +15,10 @@ const UserHeader = () => {
       <View style={styles.userContainer}>
         <View style={styles.user}>
           <View style={styles.leftSection}>
-            <FastImage
-              source={{uri: userData[0]?.profile}}
-              style={styles.avator}
+            <FastImageLoading
+            imageUrl={{uri: userData[0]?.profile}}
+            style={styles.avator}
+          
             />
             <View style={styles.userData}>
               <Text style={styles.greeting}>Good Morning</Text>
@@ -42,8 +44,8 @@ const styles = StyleSheet.create({
     marginTop: Metrix.VerticalSize(34),
   },
   avator: {
-    height: 34,
-    width: 34,
+    height: Metrix.customFontSize(34),
+    width: Metrix.customFontSize(34),
     borderRadius: Metrix.Radius,
   },
   userContainer: {
